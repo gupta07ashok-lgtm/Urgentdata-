@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URGENTDATA - Professional Data & Creative Solutions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>URGENTDATA</h1>
+            <h2>Professional Data & Creative Solutions</h2>
+            <div class="offers">
+                <div class="offer-card">
+                    <p class="offer-title">India Offer</p>
+                    <p class="original-price">₹2000</p>
+                    <p class="discount-price">₹1000</p>
+                    <p class="discount-badge">50% OFF</p>
+                </div>
+                <div class="offer-card">
+                    <p class="offer-title">International Offer</p>
+                    <p class="original-price">$50</p>
+                    <p class="discount-price">$20</p>
+                    <p class="discount-badge">60% OFF</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form id="otpForm">
+                <div class="form-group">
+                    <label for="mobile">Mobile Number</label>
+                    <input type="tel" id="mobile" name="mobile" placeholder="Enter 10-digit mobile number" required>
+                    <span class="error-message" id="mobileError"></span>
+                </div>
+
+                <div id="otpSection" class="hidden">
+                    <div class="form-group">
+                        <label for="otp">Enter OTP</label>
+                        <input type="text" id="otp" name="otp" placeholder="Enter 6-digit OTP" maxlength="6">
+                        <span class="error-message" id="otpError"></span>
+                        <p class="info-text">OTP sent to your mobile number</p>
+                    </div>
+                    <button type="button" id="verifyBtn" class="btn btn-primary">Verify OTP</button>
+                    <button type="button" id="resendBtn" class="btn btn-secondary">Resend OTP</button>
+                </div>
+
+                <div id="submitSection">
+                    <button type="submit" id="getOtpBtn" class="btn btn-primary">Get OTP</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="loadingSpinner" class="hidden">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

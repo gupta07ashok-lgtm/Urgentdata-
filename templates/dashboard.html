@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - URGENTDATA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="container">
+            <h1>URGENTDATA</h1>
+            <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="dashboard-content">
+            <h2>Available Services</h2>
+            <p class="welcome-text" id="welcomeText">Welcome! Choose a service to get started.</p>
+            
+            <div class="services-grid" id="servicesGrid">
+                <!-- Services will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
