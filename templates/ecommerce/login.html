@@ -1,42 +1,75 @@
-{% extends 'ecommerce/base.html' %}
-
-{% block title %}Login - URGENTDATA{% endblock %}
-
-{% block content %}
-<section class="login-section section">
-    <div class="container-fluid">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Login - UrgentData</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .login-wrapper { min-height: 100vh; display: flex; background: linear-gradient(135deg, #1a3a52 0%, #7209b7 100%); }
+        .login-container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+        .login-box { background: white; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 500px; width: 100%; overflow: hidden; }
+        .login-header { background: linear-gradient(135deg, #1a3a52 0%, #2e5f8a 100%); color: white; padding: 3rem 2rem; text-align: center; }
+        .login-header h1 { margin: 0; font-size: 1.8rem; font-weight: 800; }
+        .login-body { padding: 2.5rem; }
+        .form-step { display: none; }
+        .form-step.active { display: block; animation: slideUp 0.4s ease; }
+        .otp-inputs { display: flex; gap: 0.75rem; justify-content: center; margin: 2rem 0; }
+        .otp-input { width: 60px; height: 60px; font-size: 1.5rem; font-weight: 600; text-align: center; border: 2px solid #dee2e6; border-radius: 8px; transition: all 0.3s; }
+        .otp-input:focus { border-color: #2e5f8a; box-shadow: 0 0 0 3px rgba(46, 95, 138, 0.1); outline: none; }
+        .timer { text-align: center; font-weight: 600; color: #7f8c8d; margin: 1rem 0; }
+        .resend-link { text-align: center; margin-top: 1.5rem; }
+        .resend-link a { color: #2e5f8a; cursor: pointer; text-decoration: underline; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <div class="login-wrapper">
         <div class="login-container">
-            <h1>Welcome to URGENTDATA</h1>
-            <p>Sign in to your account</p>
-            
-            <form id="loginForm" class="login-form">
-                <div class="form-group">
-                    <label for="mobile">Mobile Number</label>
-                    <input type="tel" id="mobile" name="mobile" placeholder="Enter 10-digit number" required>
-                    <span class="error-message" id="mobileError"></span>
+            <div class="login-box">
+                <div class="login-header">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;"><i class="fas fa-rocket"></i></div>
+                    <h1>UrgentData</h1>
+                    <p style="margin: 0.5rem 0 0 0; opacity: 0.9;">Secure Login Portal</p>
                 </div>
-
-                <div id="otpSection" class="hidden">
-                    <div class="form-group">
-                        <label for="otp">Enter OTP</label>
-                        <input type="text" id="otp" name="otp" placeholder="Enter 6-digit OTP" maxlength="6">
-                        <span class="error-message" id="otpError"></span>
+                <div class="login-body">
+                    <!-- Mobile Entry -->
+                    <div class="form-step active" id="step-1">
+                        <h3 style="margin-bottom: 1.5rem; color: #2c3e50;">Enter Mobile Number</h3>
+                        <form id="form-mobile">
+                            <div class="form-group">
+                                <label class="form-label">10-Digit Mobile Number</label>
+                                <input type="tel" id="mobile" class="form-input" maxlength="10" placeholder="Enter mobile" required>
+                                <div id="mobile-error" class="form-error"></div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;">Get OTP</button>
+                        </form>
                     </div>
-                    <button type="button" id="verifyBtn" class="btn btn-primary btn-block">Verify OTP</button>
-                    <button type="button" id="resendBtn" class="btn btn-secondary btn-block">Resend OTP</button>
-                </div>
 
-                <div id="submitSection">
-                    <button type="submit" id="getOtpBtn" class="btn btn-primary btn-block">Get OTP</button>
+                    <!-- OTP Verification -->
+                    <div class="form-step" id="step-2">
+                        <h3 style="margin-bottom: 0.5rem; color: #2c3e50;">Verify OTP</h3>
+                        <p style="color: #7f8c8d; margin-bottom: 1.5rem;">OTP sent to <strong id="show-mobile"></strong></p>
+                        <div class="otp-inputs" id="otp-inputs">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" inputmode="numeric">
+                        </div>
+                        <div class="timer">Time: <strong id="timer">05:00</strong></div>
+                        <div id="otp-error" class="form-error"></div>
+                        <button type="button" class="btn btn-primary" style="width: 100%; margin-top: 1rem;" onclick="verifyOTP()">Verify & Login</button>
+                        <div class="resend-link">
+                            <a onclick="resendOTP()"><i class="fas fa-redo"></i> Resend OTP</a>
+                        </div>
+                    </div>
                 </div>
-            </form>
-
-            <div id="loadingSpinner" class="hidden">
-                <div class="spinner"></div>
-                <p>Processing...</p>
             </div>
         </div>
     </div>
-</section>
-<script src="{{ url_for('static', filename='js/login.js') }}"></script>
-{% endblock %}
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</body>
+</html>
