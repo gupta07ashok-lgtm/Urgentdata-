@@ -1,0 +1,44 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block title %}My Orders - URGENTDATA{% endblock %}
+
+{% block content %}
+<section class="my-orders-section section">
+    <div class="container-fluid">
+        <h1>My Orders</h1>
+        
+        {% if orders %}
+        <div class="orders-list">
+            {% for order in orders %}
+            <div class="order-card">
+                <div class="order-header">
+                    <div>
+                        <p class="order-id">Order ID: {{ order.order_id }}</p>
+                        <p class="order-date">{{ order.date }}</p>
+                    </div>
+                    <div class="order-status" data-status="{{ order.status }}">
+                        <span class="status-badge">{{ order.status }}</span>
+                        <span class="total">₹{{ order.total }}</span>
+                    </div>
+                </div>
+                <div class="order-items">
+                    {% for item in order.items %}
+                    <p>{{ item.name }} x {{ item.quantity }}</p>
+                    {% endfor %}
+                </div>
+                <div class="order-actions">
+                    <a href="/track-order/{{ order.order_id }}" class="btn btn-outline">Track</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-orders">
+            <i class="fas fa-inbox"></i>
+            <p>You haven't placed any orders yet</p>
+            <a href="/products" class="btn btn-primary">Start Shopping</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

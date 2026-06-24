@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}URGENTDATA - Online Shopping{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ecommerce.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="container-fluid">
+                <div class="header-content">
+                    <div class="logo">
+                        <a href="/"><i class="fas fa-shopping-bag"></i> URGENTDATA</a>
+                    </div>
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search products..." id="searchInput">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="header-actions">
+                        <a href="/wishlist" class="header-action-btn">
+                            <i class="fas fa-heart"></i>
+                            <span>Wishlist</span>
+                            <span class="badge" id="wishlistCount">0</span>
+                        </a>
+                        <a href="/cart" class="header-action-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Cart</span>
+                            <span class="badge" id="cartCount">0</span>
+                        </a>
+                        {% if session.get('verified') %}
+                        <div class="user-menu">
+                            <button class="header-action-btn" id="userMenuBtn">
+                                <i class="fas fa-user"></i>
+                                <span>Account</span>
+                            </button>
+                            <div class="dropdown-menu" id="userDropdown">
+                                <a href="/dashboard">Dashboard</a>
+                                <a href="/my-orders">My Orders</a>
+                                <a href="/wishlist">Wishlist</a>
+                                <hr>
+                                <button id="logoutBtn" class="logout-btn">Logout</button>
+                            </div>
+                        </div>
+                        {% else %}
+                        <a href="/login" class="header-action-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            <span>Login</span>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div class="categories">
+                    <button class="cat-btn"><i class="fas fa-bars"></i> Categories</button>
+                    <div class="categories-dropdown">
+                        <a href="/products">All</a>
+                        <a href="/products?category=Electronics">Electronics</a>
+                        <a href="/products?category=Fashion">Fashion</a>
+                        <a href="/products?category=Home & Kitchen">Home & Kitchen</a>
+                        <a href="/products?category=Sports">Sports</a>
+                    </div>
+                </div>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/products">Shop</a>
+                    <a href="/about">About</a>
+                    <a href="/contact">Contact</a>
+                    <a href="/faq">Help</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>URGENTDATA</h3>
+                <p>Your trusted online shopping destination</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/products">Products</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="/faq">FAQ</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="/contact">Support</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>Email: support@urgentdata.com</p>
+                <p>Phone: +91 9876543210</p>
+                <p>Address: New Delhi, India</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 URGENTDATA. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/ecommerce.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

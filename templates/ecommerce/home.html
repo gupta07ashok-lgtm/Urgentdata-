@@ -1,0 +1,97 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+<!-- Banner -->
+<section class="banner">
+    <div class="banner-content">
+        <h1>Welcome to URGENTDATA</h1>
+        <p>Shop the best deals online</p>
+        <a href="/products" class="btn btn-primary">Shop Now</a>
+    </div>
+</section>
+
+<!-- Deals Section -->
+<section class="deals section">
+    <div class="container-fluid">
+        <h2>Best Deals</h2>
+        <div class="products-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="placeholder">{{ product.name[0] }}</div>
+                    <span class="discount">-{{ ((product.original_price - product.price) / product.original_price * 100)|int }}%</span>
+                </div>
+                <div class="product-info">
+                    <h3>{{ product.name }}</h3>
+                    <p class="category">{{ product.category }}</p>
+                    <div class="rating">
+                        <i class="fas fa-star"></i> {{ product.rating }} ({{ product.reviews }})
+                    </div>
+                    <div class="price">
+                        <span class="current-price">₹{{ product.price }}</span>
+                        <span class="original-price">₹{{ product.original_price }}</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="/product/{{ product.id }}" class="btn btn-outline">View</a>
+                        <button class="btn btn-primary add-to-cart" data-product-id="{{ product.id }}">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Categories -->
+<section class="categories section bg-light">
+    <div class="container-fluid">
+        <h2>Shop by Category</h2>
+        <div class="categories-grid">
+            <a href="/products?category=Electronics" class="category-tile">
+                <i class="fas fa-laptop"></i>
+                <span>Electronics</span>
+            </a>
+            <a href="/products?category=Fashion" class="category-tile">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Fashion</span>
+            </a>
+            <a href="/products?category=Home & Kitchen" class="category-tile">
+                <i class="fas fa-home"></i>
+                <span>Home & Kitchen</span>
+            </a>
+            <a href="/products?category=Sports" class="category-tile">
+                <i class="fas fa-dumbbell"></i>
+                <span>Sports</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features section">
+    <div class="container-fluid">
+        <div class="features-grid">
+            <div class="feature">
+                <i class="fas fa-truck"></i>
+                <h3>Free Shipping</h3>
+                <p>On orders above ₹500</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Secure Payment</h3>
+                <p>100% secure transactions</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-undo"></i>
+                <h3>Easy Returns</h3>
+                <p>7-day return policy</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-headset"></i>
+                <h3>24/7 Support</h3>
+                <p>Customer support always available</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

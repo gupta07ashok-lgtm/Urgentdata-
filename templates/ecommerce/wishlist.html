@@ -1,0 +1,40 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block title %}Wishlist - URGENTDATA{% endblock %}
+
+{% block content %}
+<section class="wishlist-section section">
+    <div class="container-fluid">
+        <h1>My Wishlist</h1>
+        
+        {% if wishlist %}
+        <div class="wishlist-grid">
+            {% for product in wishlist %}
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="placeholder">{{ product.name[0] }}</div>
+                    <button class="remove-wishlist" data-product-id="{{ product.id }}"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="product-info">
+                    <h3>{{ product.name }}</h3>
+                    <div class="price">
+                        <span class="current-price">₹{{ product.price }}</span>
+                        <span class="original-price">₹{{ product.original_price }}</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary add-to-cart" data-product-id="{{ product.id }}">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-wishlist">
+            <i class="fas fa-heart"></i>
+            <p>Your wishlist is empty</p>
+            <a href="/products" class="btn btn-primary">Continue Shopping</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

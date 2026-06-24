@@ -1,0 +1,67 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block title %}Checkout - URGENTDATA{% endblock %}
+
+{% block content %}
+<section class="checkout-section section">
+    <div class="container-fluid">
+        <h1>Checkout</h1>
+        
+        <div class="checkout-layout">
+            <div class="checkout-form">
+                <div class="form-section">
+                    <h2>Delivery Address</h2>
+                    <div class="form-row">
+                        <input type="text" placeholder="Full Name" required>
+                        <input type="tel" placeholder="Phone Number" required>
+                    </div>
+                    <textarea placeholder="Address" rows="3" required></textarea>
+                    <div class="form-row">
+                        <input type="text" placeholder="City" required>
+                        <input type="text" placeholder="PIN Code" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Payment Method</h2>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="card" checked>
+                        <span>Credit/Debit Card</span>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="upi">
+                        <span>UPI</span>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="cod">
+                        <span>Cash on Delivery</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div id="orderItems"></div>
+                <div class="summary-item">
+                    <span>Subtotal:</span>
+                    <span id="orderSubtotal">₹0</span>
+                </div>
+                <div class="summary-item">
+                    <span>Shipping:</span>
+                    <span id="orderShipping">₹0</span>
+                </div>
+                <div class="summary-item">
+                    <span>Tax:</span>
+                    <span id="orderTax">₹0</span>
+                </div>
+                <div class="summary-item total">
+                    <span>Total:</span>
+                    <span id="orderTotal">₹0</span>
+                </div>
+                <button class="btn btn-primary btn-block" id="placeOrderBtn">Place Order</button>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="{{ url_for('static', filename='js/checkout.js') }}"></script>
+{% endblock %}

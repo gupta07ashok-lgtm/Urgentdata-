@@ -1,0 +1,64 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block title %}Track Order - URGENTDATA{% endblock %}
+
+{% block content %}
+<section class="track-order-section section">
+    <div class="container-fluid">
+        <h1>Track Your Order</h1>
+        
+        <div class="tracking-container">
+            <div class="order-header">
+                <h2>Order ID: {{ order.order_id }}</h2>
+                <p>Status: <strong>{{ order.status }}</strong></p>
+                <p>Date: {{ order.date }}</p>
+            </div>
+
+            <div class="tracking-timeline">
+                {% for step in order.tracking %}
+                <div class="timeline-step {% if step.date %}completed{% endif %}">
+                    <div class="step-icon">
+                        {% if step.date %}
+                        <i class="fas fa-check-circle"></i>
+                        {% else %}
+                        <i class="fas fa-circle"></i>
+                        {% endif %}
+                    </div>
+                    <div class="step-content">
+                        <h3>{{ step.status }}</h3>
+                        {% if step.date %}
+                        <p>{{ step.date }}</p>
+                        {% else %}
+                        <p>Pending</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="order-items">
+                <h2>Order Items</h2>
+                <div class="items-list">
+                    {% for item in order.items %}
+                    <div class="item-row">
+                        <span>{{ item.name }}</span>
+                        <span>Qty: {{ item.quantity }}</span>
+                        <span>₹{{ item.price }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="order-total">
+                    <span>Total:</span>
+                    <span>₹{{ order.total }}</span>
+                </div>
+            </div>
+
+            <div class="support-section">
+                <h3>Need Help?</h3>
+                <p>Contact our support team if you have any questions about your order.</p>
+                <a href="/contact" class="btn btn-outline">Contact Support</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

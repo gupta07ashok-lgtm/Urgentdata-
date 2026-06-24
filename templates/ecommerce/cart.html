@@ -1,0 +1,45 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block title %}Shopping Cart - URGENTDATA{% endblock %}
+
+{% block content %}
+<section class="cart-section section">
+    <div class="container-fluid">
+        <h1>Shopping Cart</h1>
+        
+        <div class="cart-layout">
+            <div class="cart-items">
+                <div id="cartItems"></div>
+                <div id="emptyCart" class="empty-message">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Your cart is empty</p>
+                    <a href="/products" class="btn btn-primary">Continue Shopping</a>
+                </div>
+            </div>
+
+            <div class="cart-summary">
+                <h2>Order Summary</h2>
+                <div class="summary-item">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">₹0</span>
+                </div>
+                <div class="summary-item">
+                    <span>Shipping:</span>
+                    <span id="shipping">₹0</span>
+                </div>
+                <div class="summary-item">
+                    <span>Tax:</span>
+                    <span id="tax">₹0</span>
+                </div>
+                <div class="summary-item total">
+                    <span>Total:</span>
+                    <span id="total">₹0</span>
+                </div>
+                <button class="btn btn-primary btn-block" id="checkoutBtn">Proceed to Checkout</button>
+                <a href="/products" class="btn btn-outline btn-block">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+{% endblock %}

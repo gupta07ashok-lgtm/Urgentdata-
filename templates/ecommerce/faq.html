@@ -1,0 +1,32 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block title %}FAQ - URGENTDATA{% endblock %}
+
+{% block content %}
+<section class="faq-section section">
+    <div class="container-fluid">
+        <h1>Frequently Asked Questions</h1>
+        
+        <div class="faq-container">
+            {% for faq in faqs %}
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>{{ faq.question }}</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>{{ faq.answer }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<script>
+document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+        button.parentElement.classList.toggle('active');
+    });
+});
+</script>
+{% endblock %}
